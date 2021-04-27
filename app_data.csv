@@ -1,0 +1,6 @@
+Arithmetic Intensity,Total Flops,Time (s),Cycles,Label
+1.062802, 4.60E+10, 1.290982, 4389488980,p2z niter 5  g++ 9
+1.062802, 9.20E+10, 2.707726, 8472444802,p2z niter 10 g++ 9
+1.425086, 6.14E+10, 0.412815, 1183696731,p2z niter 5  intel 19
+1.396698, 1.23E+11, 0.826246, 2493241479,p2z niter 10 intel 19
+1.06039, 4.58E+10, 3.053156, 10357917667,p2z niter 5  intel 19 scalar
