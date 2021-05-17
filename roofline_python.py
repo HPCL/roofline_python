@@ -17,7 +17,7 @@ def SetupArgs():
     # input roofline.json file
     parser.add_argument("--input", "-i", help="Path to the roofline JSON file", required=True)
     # output file name for saving the roofline chart
-    parser.add_argument("--outfile", "o", help="The output file path/name", required=True)
+    parser.add_argument("--outfile", "-o", help="The output file path/name", required=True)
     # optional application data file
     parser.add_argument("--appdata", "-a", help="Path to the CSV file that contains application performance data")
     parser.add_argument("--table", "-t", help="Include the config information in a table next to the roofline plot", action="store_true")
@@ -109,7 +109,7 @@ def create_roofline(args):
         y0gbytes = ymid
         x0gbytes = y0gbytes/slope
         alpha = 1.25
-        angle = math.degrees(math.atan(slope))/2
+        # angle = math.degrees(math.atan(slope))/2
         ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][index], size='medium', rotation=52)
 
     if args.appdata:
@@ -136,6 +136,7 @@ def create_roofline(args):
 
     # save the file
     ax.figure.savefig(args.outfile)
+    print("Figure Saved as", args.outfile)
 
 
 # add the table next to the chart from config metadata
