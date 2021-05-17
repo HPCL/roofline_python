@@ -12,6 +12,7 @@ appdata (-a): Path to the CSV file that contains application performance data
 table (-t): Include the config information in a table next to the roofline plot, using -t means you want the table
   
 Example:
-  python3 roofline_python -i roofline.json -o roofline.svg -a appdata.csv -t
-  
+~~~
+python3 roofline_python -i roofline.json -o roofline.svg -a appdata.csv -t
+~~~
   
