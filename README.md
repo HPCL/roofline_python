@@ -6,10 +6,10 @@ Use the python notebook in either google colab or jupyter notebook and create a 
 
 
 To run the script version here are the parameters:
-input (-i): Path to the roofline JSON file
-outfile (-o): The output SVG file path/name (this is where/how you want your plot saved)
-appdata (-a): Path to the CSV file that contains application performance data
-table (-t): Include the config information in a table next to the roofline plot, using -t means you want the table
+* input (-i): Path to the roofline JSON file
+* outfile (-o): The output SVG file path/name (this is where/how you want your plot saved)
+* appdata (-a): Path to the CSV file that contains application performance data
+* table (-t): Include the config information in a table next to the roofline plot, using -t means you want the table
   
 Example:
 ~~~
