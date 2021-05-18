@@ -9,7 +9,7 @@ import numpy as np
 import math
 # import plotly.graph_objects as go
 import argparse
-matplotlib.use('svg') # TODO: add other output types?
+# matplotlib.use('svg') # TODO: add other output types?
 
 
 def SetupArgs():
