@@ -76,7 +76,6 @@ def create_roofline(args):
     # calculate the axes scale
     xmin =   0.01
     xmax = 100.00
-    ymin = 10 # default
     ymin = 10 ** int(math.floor(math.log10(g_df['slope'][0]*xmin)))
     ymax = ymin ** int(math.floor(math.log10(g_df['slope'][0]*10)))
 
@@ -88,18 +87,19 @@ def create_roofline(args):
     alpha = 1.065
 
     # set some general plot settings
-    fig, (ax,ax2) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [2, 1]})
-    plt.figure(figsize=(48,48))
-    title = "Empirical Roofline Graph "
-    #sns.set(rc={'figure.figsize':(12,8)})
+    #fig, (ax,ax2) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [2, 1]})
+    # plt.figure(figsize=(48,48))
+    sns.set(rc={'figure.figsize':(12,8)})
     palette = sns.color_palette( "Dark2", int(len(g_df)/2))
+    font_size=14
 
     # plot the lines and peak flop label
     #ax = fig.add_subplot(121)
-    sns.lineplot(data=g_df, x="x", y="y", hue="label",palette=palette, ax=ax)
+    # sns.lineplot(data=g_df, x="x", y="y", hue="label",palette=palette, ax=ax)
+    ax = sns.lineplot(data=g_df, x="x", y="y", hue="label", palette=palette, linewidth = 3)
     ax.set(xlabel='FLOPs / Byte', ylabel='GFLOPs / Second')
     ax.set(xscale="log", yscale="log", xlim=(xmin, xmax), ylim=(ymin,ymax))
-    font_size=10
+
 
     # plot the line label(s)
     ax.text(x0gbytes, y0gbytes*alpha, g_df['label'][0], size='medium')
@@ -111,31 +111,32 @@ def create_roofline(args):
         y0gbytes = ymid
         x0gbytes = y0gbytes/slope
         alpha = 1.25
-        # angle = math.degrees(math.atan(slope))/2
-        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][index], size='medium', rotation=52)
+        angle = math.degrees(math.atan(slope))/2
+        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][index], size='medium', rotation=angle)
 
     if args.appdata:
         app_df = add_application_data(args)
         # plot the application information
-        ax = sns.scatterplot(x=app_df['Arithmetic Intensity'], y=app_df['Gflops/Sec'], style=app_df['Label'], hue=app_df['Label'])
+        ax = sns.scatterplot(x=app_df['Arithmetic Intensity'], y=app_df['Gflops/Sec'], style=app_df['Label'], hue=app_df['Label'], s=100)
 
     # add table of configs
-    if args.table:
-        metadata_df = add_table(gflops)
-        # plot table
-        bbox = [0,0,1,1]
-        ax2.axis('off')
-        ax2.axis('tight')
-        mpl_table = ax2.table(cellText = metadata_df.values, bbox=bbox, colLabels=metadata_df.columns, edges='horizontal')
-        mpl_table.auto_set_font_size(False)
-        mpl_table.set_fontsize(font_size)
+    # if args.table:
+    #     metadata_df = add_table(gflops)
+    #     # plot table
+    #     bbox = [0,0,1,1]
+    #     ax2.axis('off')
+    #     ax2.axis('tight')
+    #     mpl_table = ax2.table(cellText = metadata_df.values, bbox=bbox, colLabels=metadata_df.columns, edges='horizontal')
+    #     mpl_table.auto_set_font_size(False)
+    #     mpl_table.set_fontsize(font_size)
 
     # add grid lines, title, legend
     ax.grid(b=True, which='both')
+    title = "Empirical Roofline Graph"
     ax.set_title(title, fontsize=20)
     ax.legend(loc='lower right')
 
-    fig.tight_layout()
+    ax.get_figure().tight_layout()
 
     # save the file
     ax.figure.savefig(args.outfile)
@@ -173,10 +174,9 @@ def add_table(gflops):
 # plot the application performance data on the roofline chart
 def add_application_data(args):
     # Load the csv file
-    with open(args.appdata) as filename:
-        csv_file = json.load(filename)
+    with open(args.appdata) as csv_filename:
+        app_df = pd.read_csv(csv_filename)
 
-    app_df = pd.read_csv(csv_file)
     app_df['Gflops/Sec'] = (app_df['Total Flops']/app_df['Time (s)'])/1000000000
 
     return app_df

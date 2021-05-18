@@ -1,69 +1,69 @@
 {
    "empirical": {
-      "gbytes": {
-         "data": [
-            [
-               "L1", 
-               5371.68
-            ], 
-            [
-               "L2", 
-               3025.18
-            ], 
-            [
-               "DRAM", 
-               196.82
-            ]
-         ], 
-         "metadata": {
-            "": [
-               "FLOPS          2", 
-               "OPENMP_THREADS 40", 
-               "ERT_VERSION  1.1.0", 
-               "TIMESTAMP_DATA  1611254535.89", 
-               "HOSTNAME  ('apollo.cs.uoregon.edu', [], ['128.223.8.36'])", 
-               "UNAME  ('Linux', 'apollo', '4.15.0-88-generic', '#88-Ubuntu SMP Tue Feb 11 20:11:34 UTC 2020', 'x86_64', 'x86_64')", 
-               "CONFIG  {'ERT_WORKING_SET_MIN': ['1'], 'ERT_CFLAGS': ['-O3', '-march=skylake-avx512'], 'ERT_CC': ['g++'], 'ERT_WSS_MULT': [1.1], 'ERT_HIP': [False], 'ERT_MPI_CFLAGS': [], 'ERT_MPI_LDFLAGS': [], 'ERT_MEMORY_MAX': ['2147482548'], 'ERT_PROCS_THREADS': ['112'], 'ERT_LDFLAGS': [], 'ERT_LDLIBS': [], 'ERT_RUN': ['export', 'OMP_NUM_THREADS=ERT_OPENMP_THREADS;', 'export', 'OMP_PLACES=threads;', 'export', 'OMP_PROC_BIND=spread;', './ERT_CODE'], 'ERT_OCL': [False], 'ERT_FLOPS': ['1,2,4,8,16,32,64,128'], 'ERT_OPENMP_CFLAGS': ['-fopenmp'], 'ERT_SYCL': [False], 'ERT_MPI': ['False'], 'ERT_TRIALS_MIN': ['1'], 'ERT_DRIVER': ['driver1'], 'ERT_RESULTS': ['Results.apollo.skylake_gold'], 'ERT_OPENMP': ['True'], 'ERT_OPENMP_THREADS': ['1,2,8,16,24,32,40,48,56,64,80,96,112,128'], 'ERT_KERNEL': ['kernel1'], 'ERT_PRECISION': ['FP64'], 'ERT_LD': ['g++'], 'ERT_NUM_EXPERIMENTS': ['5'], 'ERT_OPENMP_LDFLAGS': ['-fopenmp'], 'ERT_GPU': [False], 'ERT_ALIGN': ['32'], 'ERT_GNUPLOT': ['gnuplot']}", 
-               "TIMESTAMP_DATA  1611254541.04", 
-               "TIMESTAMP_DATA  1611254546.18", 
-               "TIMESTAMP_DATA  1611254551.27", 
-               "TIMESTAMP_DATA  1611254556.38"
-            ], 
-            "TIMESTAMP_DB": 1611337174.400063
-         }
-      }, 
+      "metadata": {},
       "gflops": {
          "data": [
             [
-               "FP64 GFLOPs", 
-               2038.8
+               "FP64 GFLOPs",
+               2772.78
             ]
-         ], 
+         ],
          "metadata": {
             "": [
-               "META_DATA", 
-               "FLOPS          64", 
-               "OPENMP_THREADS 96", 
-               "ERT_VERSION  1.1.0", 
-               "TIMESTAMP_DATA  1611282082.69", 
-               "HOSTNAME  ('apollo.cs.uoregon.edu', [], ['128.223.8.36'])", 
-               "UNAME  ('Linux', 'apollo', '4.15.0-88-generic', '#88-Ubuntu SMP Tue Feb 11 20:11:34 UTC 2020', 'x86_64', 'x86_64')", 
-               "CONFIG  {'ERT_WORKING_SET_MIN': ['1'], 'ERT_CFLAGS': ['-O3', '-march=skylake-avx512'], 'ERT_CC': ['g++'], 'ERT_WSS_MULT': [1.1], 'ERT_HIP': [False], 'ERT_MPI_CFLAGS': [], 'ERT_MPI_LDFLAGS': [], 'ERT_MEMORY_MAX': ['2147482548'], 'ERT_PROCS_THREADS': ['112'], 'ERT_LDFLAGS': [], 'ERT_LDLIBS': [], 'ERT_RUN': ['export', 'OMP_NUM_THREADS=ERT_OPENMP_THREADS;', 'export', 'OMP_PLACES=threads;', 'export', 'OMP_PROC_BIND=spread;', './ERT_CODE'], 'ERT_OCL': [False], 'ERT_FLOPS': ['1,2,4,8,16,32,64,128'], 'ERT_OPENMP_CFLAGS': ['-fopenmp'], 'ERT_SYCL': [False], 'ERT_MPI': ['False'], 'ERT_TRIALS_MIN': ['1'], 'ERT_DRIVER': ['driver1'], 'ERT_RESULTS': ['Results.apollo.skylake_gold'], 'ERT_OPENMP': ['True'], 'ERT_OPENMP_THREADS': ['1,2,8,16,24,32,40,48,56,64,80,96,112,128'], 'ERT_KERNEL': ['kernel1'], 'ERT_PRECISION': ['FP64'], 'ERT_LD': ['g++'], 'ERT_NUM_EXPERIMENTS': ['5'], 'ERT_OPENMP_LDFLAGS': ['-fopenmp'], 'ERT_GPU': [False], 'ERT_ALIGN': ['32'], 'ERT_GNUPLOT': ['gnuplot']}", 
-               "TIMESTAMP_DATA  1611282094.87", 
-               "TIMESTAMP_DATA  1611282107.01", 
-               "TIMESTAMP_DATA  1611282119.16", 
-               "TIMESTAMP_DATA  1611282131.31"
-            ], 
-            "TIMESTAMP_DB": 1611337174.399988
+               "META_DATA",
+               "FLOPS          64",
+               "OPENMP_THREADS 80",
+               "ERT_VERSION  1.1.0",
+               "HOSTNAME  ('apollo.cs.uoregon.edu', [], ['128.223.8.36'])",
+               "UNAME  uname_result(system='Linux', node='apollo', release='5.3.0-70-generic', version='#66-Ubuntu SMP Fri Jan 29 21:31:57 UTC 2021', machine='x86_64', processor='x86_64')",
+               "TIMESTAMP_DATA  1619038298.9375675",
+               "CONFIG  {'ERT_RESULTS': ['Results.apollo.skylake_gold'], 'ERT_DRIVER': ['driver1'], 'ERT_KERNEL': ['kernel1'], 'ERT_MPI': ['False'], 'ERT_MPI_CFLAGS': [], 'ERT_MPI_LDFLAGS': [], 'ERT_OPENMP': ['True'], 'ERT_OPENMP_CFLAGS': ['-fopenmp'], 'ERT_OPENMP_LDFLAGS': ['-fopenmp'], 'ERT_FLOPS': ['1,2,4,8,16,32,64,128'], 'ERT_ALIGN': ['32'], 'ERT_CC': ['icpc'], 'ERT_CFLAGS': ['-O3', '-march=skylake-avx512', '-qopt-zmm-usage=high'], 'ERT_LD': ['icpc'], 'ERT_LDFLAGS': [], 'ERT_LDLIBS': [], 'ERT_PRECISION': ['FP64'], 'ERT_RUN': ['export', 'OMP_ORC_BIND=close;', 'export', 'OMP_PLACES=sockets;', './ERT_CODE'], 'ERT_PROCS_THREADS': ['112'], 'ERT_OPENMP_THREADS': ['18,20,38,40,78,80'], 'ERT_NUM_EXPERIMENTS': ['5'], 'ERT_MEMORY_MAX': ['2147482548'], 'ERT_WORKING_SET_MIN': ['1'], 'ERT_TRIALS_MIN': ['1'], 'ERT_GNUPLOT': ['gnuplot'], 'ERT_GPU': [False], 'ERT_HIP': [False], 'ERT_OCL': [False], 'ERT_SYCL': [False], 'ERT_WSS_MULT': [1.1]}",
+               "TIMESTAMP_DATA  1619038305.7113626",
+               "TIMESTAMP_DATA  1619038312.447366",
+               "TIMESTAMP_DATA  1619038319.1575305",
+               "TIMESTAMP_DATA  1619038325.916049"
+            ],
+            "TIMESTAMP_DB": 1619038621.4781697
          }
-      }, 
-      "metadata": {}
-   }, 
+      },
+      "gbytes": {
+         "data": [
+            [
+               "L1",
+               8259.44
+            ],
+            [
+               "L2",
+               3120.85
+            ],
+            [
+               "DRAM",
+               200.3
+            ]
+         ],
+         "metadata": {
+            "": [
+               "FLOPS          4",
+               "OPENMP_THREADS 80",
+               "ERT_VERSION  1.1.0",
+               "HOSTNAME  ('apollo.cs.uoregon.edu', [], ['128.223.8.36'])",
+               "UNAME  uname_result(system='Linux', node='apollo', release='5.3.0-70-generic', version='#66-Ubuntu SMP Fri Jan 29 21:31:57 UTC 2021', machine='x86_64', processor='x86_64')",
+               "TIMESTAMP_DATA  1619037592.3827763",
+               "CONFIG  {'ERT_RESULTS': ['Results.apollo.skylake_gold'], 'ERT_DRIVER': ['driver1'], 'ERT_KERNEL': ['kernel1'], 'ERT_MPI': ['False'], 'ERT_MPI_CFLAGS': [], 'ERT_MPI_LDFLAGS': [], 'ERT_OPENMP': ['True'], 'ERT_OPENMP_CFLAGS': ['-fopenmp'], 'ERT_OPENMP_LDFLAGS': ['-fopenmp'], 'ERT_FLOPS': ['1,2,4,8,16,32,64,128'], 'ERT_ALIGN': ['32'], 'ERT_CC': ['icpc'], 'ERT_CFLAGS': ['-O3', '-march=skylake-avx512', '-qopt-zmm-usage=high'], 'ERT_LD': ['icpc'], 'ERT_LDFLAGS': [], 'ERT_LDLIBS': [], 'ERT_PRECISION': ['FP64'], 'ERT_RUN': ['export', 'OMP_ORC_BIND=close;', 'export', 'OMP_PLACES=sockets;', './ERT_CODE'], 'ERT_PROCS_THREADS': ['112'], 'ERT_OPENMP_THREADS': ['18,20,38,40,78,80'], 'ERT_NUM_EXPERIMENTS': ['5'], 'ERT_MEMORY_MAX': ['2147482548'], 'ERT_WORKING_SET_MIN': ['1'], 'ERT_TRIALS_MIN': ['1'], 'ERT_GNUPLOT': ['gnuplot'], 'ERT_GPU': [False], 'ERT_HIP': [False], 'ERT_OCL': [False], 'ERT_SYCL': [False], 'ERT_WSS_MULT': [1.1]}",
+               "TIMESTAMP_DATA  1619037597.3764522",
+               "TIMESTAMP_DATA  1619037602.4575253",
+               "TIMESTAMP_DATA  1619037607.320476",
+               "TIMESTAMP_DATA  1619037612.2389545"
+            ],
+            "TIMESTAMP_DB": 1619038621.4782283
+         }
+      }
+   },
    "spec": {
-      "gbytes": {
-         "data": []
-      }, 
       "gflops": {
+         "data": []
+      },
+      "gbytes": {
          "data": []
       }
    }
