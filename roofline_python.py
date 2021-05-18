@@ -29,8 +29,10 @@ def SetupArgs():
 def create_roofline(args):
     # Load the json file
     with open(args.input) as filename:
-        json_file = json.load(filename)
-    data = json.loads(json_file)
+        #json_file = json.load(filename)
+        data = json.load(filename)
+    #print(json_file)
+    #data = json.loads(json_file)
 
     # Parse the gbytes section
     gbytes = data['empirical']['gbytes']
@@ -121,6 +123,7 @@ def create_roofline(args):
     if args.table:
         metadata_df = add_table(gflops)
         # plot table
+        bbox = [0,0,1,1]
         ax2.axis('off')
         ax2.axis('tight')
         mpl_table = ax2.table(cellText = metadata_df.values, bbox=bbox, colLabels=metadata_df.columns, edges='horizontal')
@@ -142,17 +145,17 @@ def create_roofline(args):
 # add the table next to the chart from config metadata
 def add_table(gflops):
     # Get the host name
-    host_info = gflops['metadata'][''][3]
+    metad = gflops['metadata']['']
+    host_info = metad[5]
     host_list = host_info.split("'")
     host_name = host_list[1]
 
     # parse the config section to add to the table
-    metad = gflops['metadata']['']
     for i in range(len(metad)):
         conf = metad[i]
         if conf.startswith('CONFIG'):
             config = metad[i]
-        break
+            break
     config_list = config.split("'")
     config_list = config_list[1:]
 
