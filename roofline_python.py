@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import math
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
 import argparse
 matplotlib.use('svg') # TODO: add other output types?
 
