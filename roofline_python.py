@@ -29,10 +29,7 @@ def SetupArgs():
 def create_roofline(args):
     # Load the json file
     with open(args.input) as filename:
-        #json_file = json.load(filename)
         data = json.load(filename)
-    #print(json_file)
-    #data = json.loads(json_file)
 
     # Parse the gbytes section
     gbytes = data['empirical']['gbytes']
@@ -73,6 +70,12 @@ def create_roofline(args):
     g_df = pd.concat([gflops_df, gbytes_df], ignore_index=True)
 
     # *** BEGIN PLOTTING *** #
+    if (args.table):
+        plot_table(g_df, gbytes_df, gflops)
+    else:
+        plot_no_table(g_df, gbytes_df)
+
+def plot_table(g_df, gbytes_df, gflops):
     # calculate the axes scale
     xmin =   0.01
     xmax = 100.00
@@ -87,19 +90,15 @@ def create_roofline(args):
     alpha = 1.065
 
     # set some general plot settings
-    #fig, (ax,ax2) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [2, 1]})
-    # plt.figure(figsize=(48,48))
     sns.set(rc={'figure.figsize':(12,8)})
     palette = sns.color_palette( "Dark2", int(len(g_df)/2))
-    font_size=14
+    font_size=10
 
     # plot the lines and peak flop label
-    #ax = fig.add_subplot(121)
-    # sns.lineplot(data=g_df, x="x", y="y", hue="label",palette=palette, ax=ax)
-    ax = sns.lineplot(data=g_df, x="x", y="y", hue="label", palette=palette, linewidth = 3)
+    fig, (ax,ax2) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [2, 1]})
+    sns.lineplot(data=g_df, x="x", y="y", hue="label",palette=palette, ax=ax, linewidth=3)
     ax.set(xlabel='FLOPs / Byte', ylabel='GFLOPs / Second')
     ax.set(xscale="log", yscale="log", xlim=(xmin, xmax), ylim=(ymin,ymax))
-
 
     # plot the line label(s)
     ax.text(x0gbytes, y0gbytes*alpha, g_df['label'][0], size='medium')
@@ -112,23 +111,76 @@ def create_roofline(args):
         x0gbytes = y0gbytes/slope
         alpha = 1.25
         angle = math.degrees(math.atan(slope))/2
+        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][index], size='medium', rotation=52)
+
+    if args.appdata:
+        app_df = add_application_data(args)
+        # plot the application information
+        sns.scatterplot(x=app_df['Arithmetic Intensity'], y=app_df['Gflops/Sec'], ax=ax, style=app_df['Label'], hue=app_df['Label'], s=100)
+
+    # add table of configs
+    metadata_df = add_table(gflops)
+    # plot table
+    bbox = [0,0,1,1]
+    ax2.axis('off')
+    ax2.axis('tight')
+    mpl_table = ax2.table(cellText=metadata_df.values, bbox=bbox, colLabels=metadata_df.columns, edges='horizontal')
+    mpl_table.auto_set_font_size(False)
+    mpl_table.set_fontsize(font_size)
+
+    # add grid lines, title, legend
+    ax.grid(b=True, which='both')
+    title = "Empirical Roofline Graph"
+    ax.set_title(title, fontsize=20)
+    ax.legend(loc='lower right')
+
+    fig.tight_layout()
+
+    # save the file
+    ax.figure.savefig(args.outfile)
+    print("Figure Saved as", args.outfile)
+
+def plot_no_table(g_df, gbytes_df):
+    # calculate the axes scale
+    xmin =   0.01
+    xmax = 100.00
+    ymin = 10 ** int(math.floor(math.log10(g_df['slope'][0]*xmin)))
+    ymax = ymin ** int(math.floor(math.log10(g_df['slope'][0]*10)))
+
+    #calculate the midpoints for labels
+    xmid = math.sqrt(xmin * xmax)
+    ymid = g_df['slope'][0] * xmid
+    y0gbytes = ymid
+    x0gbytes = y0gbytes/g_df['slope'][0]
+    alpha = 1.065
+
+    # set some general plot settings
+    sns.set(rc={'figure.figsize':(12,8)})
+    palette = sns.color_palette( "Dark2", int(len(g_df)/2))
+    font_size=10
+
+    # plot the lines and peak flop label
+    ax = sns.lineplot(data=g_df, x="x", y="y", hue="label", palette=palette, linewidth=3)
+    ax.set(xlabel='FLOPs / Byte', ylabel='GFLOPs / Second')
+    ax.set(xscale="log", yscale="log", xlim=(xmin, xmax), ylim=(ymin,ymax))
+
+    # plot the line label(s)
+    ax.text(x0gbytes, y0gbytes*alpha, g_df['label'][0], size='medium')
+    for index in range(len(gbytes_df.name.unique())):
+        mem = gbytes_df['name'][index]
+        (xmax, slope) = max([(gbytes_df['x'][i],gbytes_df['slope'][i]) for i in range(len(gbytes_df['x'])) if gbytes_df['name'][i]==mem])
+        xmid = math.sqrt(xmin * xmax)
+        ymid = slope * xmid
+        y0gbytes = ymid
+        x0gbytes = y0gbytes/slope
+        alpha = 1.25
+        angle = (math.degrees(math.atan(slope))/2)-3
         ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][index], size='medium', rotation=angle)
 
     if args.appdata:
         app_df = add_application_data(args)
         # plot the application information
         ax = sns.scatterplot(x=app_df['Arithmetic Intensity'], y=app_df['Gflops/Sec'], style=app_df['Label'], hue=app_df['Label'], s=100)
-
-    # add table of configs
-    # if args.table:
-    #     metadata_df = add_table(gflops)
-    #     # plot table
-    #     bbox = [0,0,1,1]
-    #     ax2.axis('off')
-    #     ax2.axis('tight')
-    #     mpl_table = ax2.table(cellText = metadata_df.values, bbox=bbox, colLabels=metadata_df.columns, edges='horizontal')
-    #     mpl_table.auto_set_font_size(False)
-    #     mpl_table.set_fontsize(font_size)
 
     # add grid lines, title, legend
     ax.grid(b=True, which='both')
