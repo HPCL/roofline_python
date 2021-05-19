@@ -213,12 +213,32 @@ def add_table(gflops):
     config_list = config_list[1:]
 
     config_for_pd = [('HOST',host_name)]
-    for j in range(0, len(config_list)-2, 4):
-        # add logic to deal with flags - multiple values per key
-        value = config_list[j+2]
-        if re.search('[a-zA-Z0-9]', value):
-            config_for_pd.append((config_list[j], value))
+    # for j in range(0, len(config_list)-2, 4):
+    #     # add logic to deal with flags - multiple values per key
+    #     value = config_list[j+2]
+    #     if re.search('[a-zA-Z0-9]', value):
+    #         config_for_pd.append((config_list[j], value))
 
+    config_name = ''
+    value_list = []
+    for x in range(len(config_list)):
+        cur_conf = config_list[x]
+        #print(cur_conf)
+        # hit a key
+        if cur_conf.isupper():
+            print("HIT KEY", cur_conf)
+            config_name = cur_conf
+        # hit a value
+        elif re.search('[a-zA-Z0-9]', cur_conf):
+            print("HIT VALUE", cur_conf)
+            value_list.append(cur_conf)
+        # end of a section add config and value to dict
+        elif ("]," in cur_conf)or ("]}" in cur_conf):
+            print("ADDING CONFIG", config_name, value_list)
+            config_for_pd.append((config_name, value_list))
+            value_list = []
+
+    print(config_for_pd)
     metadata_df = pd.DataFrame(config_for_pd, columns=["Config", "Value"])
     return metadata_df
 
