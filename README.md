@@ -16,6 +16,6 @@ To run the script version here are the parameters:
   
 Example:
 ~~~
-python3 roofline_python -i roofline.json -o roofline.svg -a appdata.csv -t
+python3 roofline_python.py -i roofline.json -o roofline.svg -a appdata.csv -t
 ~~~
   
