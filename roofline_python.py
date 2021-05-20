@@ -223,20 +223,19 @@ def add_table(gflops):
     value_list = []
     for x in range(len(config_list)):
         cur_conf = config_list[x]
-        #print(cur_conf)
+        print(cur_conf)
         # hit a key
         if cur_conf.isupper():
-            print("HIT KEY", cur_conf)
             config_name = cur_conf
         # hit a value
         elif re.search('[a-zA-Z0-9]', cur_conf):
-            print("HIT VALUE", cur_conf)
             value_list.append(cur_conf)
         # end of a section add config and value to dict
         elif ("]," in cur_conf)or ("]}" in cur_conf):
-            print("ADDING CONFIG", config_name, value_list)
-            config_for_pd.append((config_name, value_list))
-            value_list = []
+            if len(value_list)>0:
+                print("ADDING CONFIG", config_name, value_list)
+                config_for_pd.append((config_name, "".join(value_list)))
+            value_list = [] # reset
 
     print(config_for_pd)
     metadata_df = pd.DataFrame(config_for_pd, columns=["Config", "Value"])
