@@ -157,7 +157,6 @@ def plot_no_table(g_df, gbytes_df):
     # set some general plot settings
     sns.set(rc={'figure.figsize':(12,8)})
     palette = sns.color_palette( "Dark2", int(len(g_df)/2))
-    font_size=10
 
     # plot the lines and peak flop label
     ax = sns.lineplot(data=g_df, x="x", y="y", hue="label", palette=palette, linewidth=3)
@@ -213,17 +212,11 @@ def add_table(gflops):
     config_list = config_list[1:]
 
     config_for_pd = [('HOST',host_name)]
-    # for j in range(0, len(config_list)-2, 4):
-    #     # add logic to deal with flags - multiple values per key
-    #     value = config_list[j+2]
-    #     if re.search('[a-zA-Z0-9]', value):
-    #         config_for_pd.append((config_list[j], value))
 
     config_name = ''
     value_list = []
     for x in range(len(config_list)):
         cur_conf = config_list[x]
-        print(cur_conf)
         # hit a key
         if cur_conf.isupper():
             config_name = cur_conf
@@ -233,11 +226,9 @@ def add_table(gflops):
         # end of a section add config and value to dict
         elif ("]," in cur_conf)or ("]}" in cur_conf):
             if len(value_list)>0:
-                print("ADDING CONFIG", config_name, value_list)
                 config_for_pd.append((config_name, "".join(value_list)))
             value_list = [] # reset
 
-    print(config_for_pd)
     metadata_df = pd.DataFrame(config_for_pd, columns=["Config", "Value"])
     return metadata_df
 
