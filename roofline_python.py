@@ -46,11 +46,11 @@ def create_roofline(args):
     gflops_df = pd.DataFrame(gflops['data'], columns=['name', 'y'])
     # Add the default x intercept and "slope" (really the value)
     gflops_df['x'] = 100
-    gflops_df['slope'] = gflops['data'][0][1]
+    gflops_df['slope'] = gflops_df['y']
 
     # Calculate the point where each memory line meets the peak line, add to dataframe
     rows = len(gbytes_df)
-    peak = gflops_df['y'][0]
+    peak = max([p for p in gflops_df['y']])
     new_xes = []
     for row in range(rows):
         name = gbytes_df['name'][row]
@@ -58,24 +58,31 @@ def create_roofline(args):
         gbytes_df.loc[len(gbytes_df.index)] = [name, gbytes_df['slope'][row], x, peak]
         new_xes.append(x)
 
-    # Find the x coordinate to start the peak line at
-    peak_x_min = min(new_xes)
-    gflops_df.loc[len(gflops_df)] = [gflops_df['name'][0], gflops_df['y'][0], peak_x_min, gflops_df['y'][0]]
+    # Find the x coordinates to start the roof lines at
+    peak_mem = max([m for m in gbytes_df['slope']])
+    peak_rows = len(gflops_df)
+    for i in range(peak_rows):
+        x_val = gflops_df['y'][i] / peak_mem
+        gflops_df.loc[len(gflops_df)] = [gflops_df['name'][i], gflops_df['y'][i], x_val, gflops_df['y'][i]]
 
     # Make the label columns for the graph
     gbytes_df['label'] = gbytes_df['name'] + ' ' + gbytes_df['slope'].astype(str) + ' ' + 'GB/s'
     gflops_df['label'] = gflops_df['name'] + ' ' + gflops_df['slope'].astype(str) + ' ' + 'GFLOPs/s'
+
+    # Make type column for identifying later
+    gbytes_df['type'] = 'memory' 
+    gflops_df['type'] = 'peak'
 
     # Concatenate the gbyte and gflop data into one dataframe to plot
     g_df = pd.concat([gflops_df, gbytes_df], ignore_index=True)
 
     # *** BEGIN PLOTTING *** #
     if (args.table):
-        plot_table(g_df, gbytes_df, gflops)
+        plot_table(g_df, gbytes_df, gflops_df)
     else:
-        plot_no_table(g_df, gbytes_df)
+        plot_no_table(g_df, gbytes_df, gflops_df)
 
-def plot_table(g_df, gbytes_df, gflops):
+def plot_table(g_df, gbytes_df, gflops_df):
     # calculate the axes scale
     xmin =   0.01
     xmax = 100.00
@@ -92,18 +99,22 @@ def plot_table(g_df, gbytes_df, gflops):
     # set some general plot settings
     sns.set(rc={'figure.figsize':(12,8)})
     palette = sns.color_palette( "Dark2", int(len(g_df)/2))
+
     font_size=10
 
-    # plot the lines and peak flop label
+    # plot the lines and peak flop labels
     fig, (ax,ax2) = plt.subplots(1, 2, gridspec_kw={'width_ratios': [2, 1]})
     sns.lineplot(data=g_df, x="x", y="y", hue="label",palette=palette, ax=ax, linewidth=3)
+
+    # set axes labels and values, set log scale
     ax.set(xlabel='FLOPs / Byte', ylabel='GFLOPs / Second')
     ax.set(xscale="log", yscale="log", xlim=(xmin, xmax), ylim=(ymin,ymax))
 
     # plot the line label(s)
-    ax.text(x0gbytes, y0gbytes*alpha, g_df['label'][0], size='medium')
-    for index in range(len(gbytes_df.name.unique())):
-        mem = gbytes_df['name'][index]
+    for i in range(len(gflops_df.name.unique())):
+        ax.text(x0gbytes, y0gbytes*alpha, g_df['label'][i], size='medium', ha="right")
+    for j in range(len(gbytes_df.name.unique())):
+        mem = gbytes_df['name'][j]
         (xmax, slope) = max([(gbytes_df['x'][i],gbytes_df['slope'][i]) for i in range(len(gbytes_df['x'])) if gbytes_df['name'][i]==mem])
         xmid = math.sqrt(xmin * xmax)
         ymid = slope * xmid
@@ -111,7 +122,7 @@ def plot_table(g_df, gbytes_df, gflops):
         x0gbytes = y0gbytes/slope
         alpha = 1.25
         angle = math.degrees(math.atan(slope))/2
-        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][index], size='medium', rotation=52)
+        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][j], size='medium', rotation=52)
 
     if args.appdata:
         app_df = add_application_data(args)
@@ -140,7 +151,7 @@ def plot_table(g_df, gbytes_df, gflops):
     ax.figure.savefig(args.outfile)
     print("Figure Saved as", args.outfile)
 
-def plot_no_table(g_df, gbytes_df):
+def plot_no_table(g_df, gbytes_df, gflops_df):
     # calculate the axes scale
     xmin =   0.01
     xmax = 100.00
@@ -164,9 +175,10 @@ def plot_no_table(g_df, gbytes_df):
     ax.set(xscale="log", yscale="log", xlim=(xmin, xmax), ylim=(ymin,ymax))
 
     # plot the line label(s)
-    ax.text(x0gbytes, y0gbytes*alpha, g_df['label'][0], size='medium')
-    for index in range(len(gbytes_df.name.unique())):
-        mem = gbytes_df['name'][index]
+    for i in range(len(gflops_df.name.unique())):
+        ax.text(100, gflops_df['y'][i]*alpha, g_df['label'][i], size='medium', ha="right")
+    for j in range(len(gbytes_df.name.unique())):
+        mem = gbytes_df['name'][j]
         (xmax, slope) = max([(gbytes_df['x'][i],gbytes_df['slope'][i]) for i in range(len(gbytes_df['x'])) if gbytes_df['name'][i]==mem])
         xmid = math.sqrt(xmin * xmax)
         ymid = slope * xmid
@@ -174,7 +186,7 @@ def plot_no_table(g_df, gbytes_df):
         x0gbytes = y0gbytes/slope
         alpha = 1.25
         angle = (math.degrees(math.atan(slope))/2)-3
-        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][index], size='medium', rotation=angle)
+        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][j], size='medium', rotation=angle)
 
     if args.appdata:
         app_df = add_application_data(args)
