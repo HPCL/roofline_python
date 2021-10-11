@@ -112,7 +112,7 @@ def plot_table(g_df, gbytes_df, gflops_df):
 
     # plot the line label(s)
     for i in range(len(gflops_df.name.unique())):
-        ax.text(x0gbytes, y0gbytes*alpha, g_df['label'][i], size='medium', ha="right")
+        ax.text(xmax, y0gbytes*alpha, g_df['label'][i], size='medium', ha="right")
     for j in range(len(gbytes_df.name.unique())):
         mem = gbytes_df['name'][j]
         (xmax, slope) = max([(gbytes_df['x'][i],gbytes_df['slope'][i]) for i in range(len(gbytes_df['x'])) if gbytes_df['name'][i]==mem])
@@ -122,7 +122,7 @@ def plot_table(g_df, gbytes_df, gflops_df):
         x0gbytes = y0gbytes/slope
         alpha = 1.25
         angle = math.degrees(math.atan(slope))/2
-        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][j], size='medium', rotation=52)
+        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][j], size='medium', rotation=angle)
 
     if args.appdata:
         app_df = add_application_data(args)
@@ -176,7 +176,7 @@ def plot_no_table(g_df, gbytes_df, gflops_df):
 
     # plot the line label(s)
     for i in range(len(gflops_df.name.unique())):
-        ax.text(100, gflops_df['y'][i]*alpha, g_df['label'][i], size='medium', ha="right")
+        ax.text(xmax, gflops_df['y'][i]*alpha, g_df['label'][i], size='medium', ha="right")
     for j in range(len(gbytes_df.name.unique())):
         mem = gbytes_df['name'][j]
         (xmax, slope) = max([(gbytes_df['x'][i],gbytes_df['slope'][i]) for i in range(len(gbytes_df['x'])) if gbytes_df['name'][i]==mem])
