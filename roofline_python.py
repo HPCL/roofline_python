@@ -9,7 +9,6 @@ import numpy as np
 import math
 # import plotly.graph_objects as go
 import argparse
-# matplotlib.use('svg') # TODO: add other output types?
 
 
 def SetupArgs():
@@ -155,8 +154,10 @@ def plot_no_table(g_df, gbytes_df, gflops_df):
     # calculate the axes scale
     xmin =   0.01
     xmax = 100.00
-    ymin = 10 ** int(math.floor(math.log10(g_df['slope'][0]*xmin)))
-    ymax = ymin ** int(math.floor(math.log10(g_df['slope'][0]*10)))
+    ymin = 1 ** int(math.floor(math.log10(g_df['slope'][0]*xmin)))
+    ymax = (ymin*10) ** int(math.floor(math.log10(g_df['slope'][0]*10)))
+    #ymin = 10 ** int(math.floor(math.log10(g_df['slope'][0]*xmin)))
+    #ymax = ymin ** int(math.floor(math.log10(g_df['slope'][0]*10)))
 
     #calculate the midpoints for labels
     xmid = math.sqrt(xmin * xmax)
@@ -167,10 +168,11 @@ def plot_no_table(g_df, gbytes_df, gflops_df):
 
     # set some general plot settings
     sns.set(rc={'figure.figsize':(12,8)})
+    sns.set(font_scale=1.65)
     palette = sns.color_palette( "Dark2", int(len(g_df)/2))
 
     # plot the lines and peak flop label
-    ax = sns.lineplot(data=g_df, x="x", y="y", hue="label", palette=palette, linewidth=3)
+    ax = sns.lineplot(data=g_df, x="x", y="y", hue="label", palette=palette, linewidth=3, legend = False)
     ax.set(xlabel='FLOPs / Byte', ylabel='GFLOPs / Second')
     ax.set(xscale="log", yscale="log", xlim=(xmin, xmax), ylim=(ymin,ymax))
 
@@ -180,24 +182,25 @@ def plot_no_table(g_df, gbytes_df, gflops_df):
     for j in range(len(gbytes_df.name.unique())):
         mem = gbytes_df['name'][j]
         (xmax, slope) = max([(gbytes_df['x'][i],gbytes_df['slope'][i]) for i in range(len(gbytes_df['x'])) if gbytes_df['name'][i]==mem])
-        xmid = math.sqrt(xmin * xmax)
-        ymid = slope * xmid
-        y0gbytes = ymid
-        x0gbytes = y0gbytes/slope
-        alpha = 1.25
-        angle = (math.degrees(math.atan(slope))/2)-3
-        ax.text(x0gbytes, y0gbytes*alpha, gbytes_df['label'][j], size='medium', rotation=angle)
+        #xmid = math.sqrt(xmin * xmax)
+        ylab = slope * xmin
+        mem_alpha = 1.2
+        angle = math.degrees(math.atan(slope))/2-12
+        ax.text(xmin, ylab*mem_alpha, gbytes_df['label'][j], size='medium', rotation=angle)
 
     if args.appdata:
         app_df = add_application_data(args)
         # plot the application information
-        ax = sns.scatterplot(x=app_df['Arithmetic Intensity'], y=app_df['Gflops/Sec'], style=app_df['Label'], hue=app_df['Label'], s=100)
+        ax = sns.scatterplot(x=app_df['Arithmetic Intensity'], y=app_df['Gflops/Sec'], style=app_df['Label'], hue=app_df['Label'], s=150)
+        ax.legend(loc='lower right')
 
     # add grid lines, title, legend
     ax.grid(b=True, which='both')
-    title = "Empirical Roofline Graph"
-    ax.set_title(title, fontsize=20)
-    ax.legend(loc='lower right')
+    #title = "Empirical Roofline Graph"
+    #ax.set_title(title, fontsize=20)
+
+    #plt.axvline(x=0.951987, ymax=.935,  color="k", linestyle='--', )
+    #ax.text(0.951987*0.8, ymin*alpha, "Machine Balance", size='medium', rotation=90)
 
     ax.get_figure().tight_layout()
 
