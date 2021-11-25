@@ -5,23 +5,17 @@ import json
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import numpy as np
 import math
-# import plotly.graph_objects as go
 import argparse
+import numpy as np
 
 
 def SetupArgs():
     parser = argparse.ArgumentParser()
     # input roofline.json file
     parser.add_argument("--input", "-i", help="Path to the roofline JSON file", required=True)
-    # output file name for saving the roofline chart
-    # parser.add_argument("--outfile", "-o", help="The output file path/name", required=True)
     # config file for the graph
     parser.add_argument("--graphconfig", "-g", help="The config file path/name for specifying graph requirements", required=True)
-    # optional application data file
-    #parser.add_argument("--appdata", "-a", help="Path to the CSV file that contains application performance data")
-    #parser.add_argument("--table", "-t", help="Include the config information in a table next to the roofline plot", action="store_true")
     args = parser.parse_args()
 
     return args
@@ -134,9 +128,14 @@ def plot_table(g_df, gbytes_df, gflops_df, graph_config):
         mem = gbytes_df['name'][j]
         (xmax, slope) = max([(gbytes_df['x'][i],gbytes_df['slope'][i]) for i in range(len(gbytes_df['x'])) if gbytes_df['name'][i]==mem])
         ylab = slope * xmin
+        ytop = slope * xmax
+        #transform the data to coordinates for plotting the correct angle
+        pa = ax.transData.transform_point((xmin, ylab))
+        p = ax.transData.transform_point((xmax, ytop))
+        ang = np.arctan2(p[1]-pa[1], p[0]-pa[0])
+        trans_angle = np.rad2deg(ang)
         mem_alpha = 1.2
-        angle = math.degrees(math.atan(slope))/2-12
-        ax.text(xmin, ylab*mem_alpha, gbytes_df['label'][j], size='medium', rotation=angle)
+        ax.text(xmin, ylab*mem_alpha, gbytes_df['label'][j], size='medium', rotation=trans_angle)
 
     if graph_config["appdata"]:
         app_df = add_application_data(graph_config["appdata"])
@@ -185,13 +184,19 @@ def plot_no_table(g_df, gbytes_df, gflops_df, graph_config):
     # plot the line label(s)
     for i in range(len(gflops_df.name.unique())):
         ax.text(xmax, gflops_df['y'][i]*alpha, g_df['label'][i], size='medium', ha="right")
+
     for j in range(len(gbytes_df.name.unique())):
         mem = gbytes_df['name'][j]
         (xmax, slope) = max([(gbytes_df['x'][i],gbytes_df['slope'][i]) for i in range(len(gbytes_df['x'])) if gbytes_df['name'][i]==mem])
         ylab = slope * xmin
+        ytop = slope * xmax
+        #transform the data to coordinates for plotting the correct angle
+        pa = ax.transData.transform_point((xmin, ylab))
+        p = ax.transData.transform_point((xmax, ytop))
+        ang = np.arctan2(p[1]-pa[1], p[0]-pa[0])
+        trans_angle = np.rad2deg(ang)
         mem_alpha = 1.2
-        angle = math.degrees(math.atan(slope))/2-12
-        ax.text(xmin, ylab*mem_alpha, gbytes_df['label'][j], size='medium', rotation=angle)
+        ax.text(xmin, ylab*mem_alpha, gbytes_df['label'][j], size='medium', rotation=trans_angle)
 
     if graph_config["appdata"]:
         app_df = add_application_data(graph_config["appdata"])
