@@ -1,0 +1,3 @@
+Arithmetic Intensity,Total Flops,Time (s),Cycles,Label
+0.084882597,1.37E+12,11.228507,31365294263,NBody Scalar
+0.532555708,1.37E+12,2.983024,7619996181,NBody SIMD

@@ -1,2 +1,0 @@
-{"title": false, "xlabel":"FLOPs / Byte", "ylabel":"GFLOPs / Second", "table": false,
-  "outfile":"multi_roofs_bal.svg", "appdata":"n_body_cas.csv"}

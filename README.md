@@ -22,6 +22,6 @@ Graph_config.json default fields can be updated, keep keys the same:
 
 Example:
 ~~~
-python3 roofline_python.py -i roofline.json -g graph_config.json
+python3 roofline_python.py -i input_files/roofline.json -g input_files/graph_config.json
 ~~~
   
