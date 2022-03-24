@@ -1,2 +1,5 @@
 /p2z
 /.ipynb_*
+.DS_*
+__pycache__*
+.idea*
