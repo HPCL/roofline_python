@@ -1,2 +1,0 @@
-{"title": false, "xlabel":"Arithmetic Intensity (FLOPs/Byte)", "ylabel":"GFLOPs / Second", "table": false,
-  "outfile":"p2z/graphs/GCC_40_roofline.pdf", "appdata":"p2z/input/compare/GCC_40_OMP_TBB.csv"}

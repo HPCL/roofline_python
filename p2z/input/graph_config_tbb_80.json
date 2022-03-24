@@ -1,2 +1,0 @@
-{"title": false, "xlabel":"Arithmetic Intensity (FLOPs/Byte)", "ylabel":"GFLOPs / Second", "table": false,
-  "font_scale": 1.65, "outfile":"p2z/graphs/80_TBB_GCC_ICC_roofline.pdf", "appdata":"p2z/input/compare/TBB_GCC_ICC_80.csv"}
