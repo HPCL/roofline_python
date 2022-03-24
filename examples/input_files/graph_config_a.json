@@ -1,2 +1,2 @@
-{"title": false, "xlabel":"FLOPs / Byte", "ylabel":"GFLOPs / Second", "table": false,
+{"title": false, "xlabel":"FLOPs / Byte", "ylabel":"GFLOPs / Second", "table": false, "font_scale": 1.65,
   "outfile":"examples/output_plots/roofline_appdata.svg", "appdata":"examples/input_files/app_data.csv"}

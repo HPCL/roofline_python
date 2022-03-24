@@ -1,0 +1,5 @@
+Arithmetic Intensity,Total Flops,Time (s),Cycles,Label
+0.076920187,1.10E+12,124.628162,2.24E+11,MM default Fujitsu
+0.125602645,1.10E+12,6.434275,9996263559,MM transpose Fujitsu
+0.217367205,2.12E+12,10.715023,19775002533,MM unrolljam Fujitsu
+0.062499999,1.10E+12,205.204,3.70E+11,MM block 64 Fujitsu

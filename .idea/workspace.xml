@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c0f067b7-a86a-4f68-bb2f-398a5e95406d" name="Default Changelist" comment="cleaned up the folders, added more strucutred/updated examples">
+      <change beforePath="$PROJECT_DIR$/examples/input_files/graph_config.json" beforeDir="false" afterPath="$PROJECT_DIR$/examples/input_files/graph_config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/input_files/graph_config_a.json" beforeDir="false" afterPath="$PROJECT_DIR$/examples/input_files/graph_config_a.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/input_files/graph_config_at.json" beforeDir="false" afterPath="$PROJECT_DIR$/examples/input_files/graph_config_at.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/input_files/graph_config_multi.json" beforeDir="false" afterPath="$PROJECT_DIR$/examples/input_files/graph_config_multi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/input_files/graph_config_t.json" beforeDir="false" afterPath="$PROJECT_DIR$/examples/input_files/graph_config_t.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/input_files/n_body_cas.csv" beforeDir="false" afterPath="$PROJECT_DIR$/examples/input_files/n_body_cas.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roofline_python.py" beforeDir="false" afterPath="$PROJECT_DIR$/roofline_python.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="1sh7is7jzGZs9BoyvubenV8FTcX" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/p2z/input" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/p2z/input" />
+      <recent name="$PROJECT_DIR$/p2z/input/compare" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/examples/input_files" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/examples" />
+      <recent name="$PROJECT_DIR$/output_plots" />
+      <recent name="$PROJECT_DIR$/input_files" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c0f067b7-a86a-4f68-bb2f-398a5e95406d" name="Default Changelist" comment="" />
+      <created>1621313098009</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1621313098009</updated>
+      <workItem from="1621313100169" duration="11681000" />
+      <workItem from="1633985402981" duration="6769000" />
+      <workItem from="1635700248393" duration="8477000" />
+      <workItem from="1637528549075" duration="8385000" />
+      <workItem from="1637992010184" duration="154000" />
+      <workItem from="1638558399324" duration="6916000" />
+      <workItem from="1648159739890" duration="222000" />
+    </task>
+    <task id="LOCAL-00001" summary="some updates, moved flops label to the right, but angle not fixed yet">
+      <created>1633986127050</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1633986127050</updated>
+    </task>
+    <task id="LOCAL-00002" summary="commented out title and moved labels">
+      <created>1634327861173</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1634327861173</updated>
+    </task>
+    <task id="LOCAL-00003" summary="major refactoring - functions are callable more like a library now, though still need to separate out the script for commane line running">
+      <created>1636061638252</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1636061638252</updated>
+    </task>
+    <task id="LOCAL-00004" summary="FIXED THE ANGLES!">
+      <created>1637821772899</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1637821772899</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fixed some table functionality, some refactoring of methods, added some docstrings">
+      <created>1637990349445</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1637990349445</updated>
+    </task>
+    <task id="LOCAL-00006" summary="cleaned up the folders, added more strucutred/updated examples">
+      <created>1637991852399</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1637991852399</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="some updates, moved flops label to the right, but angle not fixed yet" />
+    <MESSAGE value="commented out title and moved labels" />
+    <MESSAGE value="major refactoring - functions are callable more like a library now, though still need to separate out the script for commane line running" />
+    <MESSAGE value="FIXED THE ANGLES!" />
+    <MESSAGE value="fixed some table functionality, some refactoring of methods, added some docstrings" />
+    <MESSAGE value="cleaned up the folders, added more strucutred/updated examples" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaned up the folders, added more strucutred/updated examples" />
+  </component>
+</project>

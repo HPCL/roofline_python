@@ -1,0 +1,2 @@
+{"title": false, "xlabel":"Arithmetic Intensity (FLOPs/Byte)", "ylabel":"GFLOPs / Second", "table": false,
+  "outfile":"p2z/graphs/40_OpenMP_GCC_ICC_roofline.pdf", "appdata":"p2z/input/compare/OpenMP_GCC_ICC_40.csv"}

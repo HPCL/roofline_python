@@ -124,13 +124,14 @@ def calculate_axes(g_df):
     :param g_df:
     :return:
     """
-    xmin = 0.01
+    xmin = 0.1
     xmax = 100.00
     ymin = 1 ** int(math.floor(math.log10(g_df['slope'][0]*xmin)))
     ymax = (ymin*10) ** int(math.floor(math.log10(g_df['slope'][0]*10)))
+    ymin = 0.0000001
     alpha = 1.15
 
-    return (xmin, xmax, ymin, ymax, alpha)
+    return xmin, xmax, ymin, ymax, alpha
 
 
 def plot_flop_labels(ax, gflops_df, xmax, alpha):
@@ -144,7 +145,6 @@ def plot_flop_labels(ax, gflops_df, xmax, alpha):
     """
     for i in range(len(gflops_df.name.unique())):
         ax.text(xmax, gflops_df['y'][i]*alpha, gflops_df['label'][i], size='medium', ha="right")
-
 
 
 def plot_mem_labels(ax, gbytes_df, xmin, alpha):
@@ -235,7 +235,7 @@ def plot_no_table(g_df, gbytes_df, gflops_df, graph_config):
 
     # set some general plot settings
     sns.set(rc={'figure.figsize':(12,8)})
-    sns.set(font_scale=1.65)
+    sns.set(font_scale=graph_config["font_scale"])
     palette = sns.color_palette("Dark2", int(len(g_df)/2))
 
     # plot the lines and peak flop labels
@@ -315,7 +315,10 @@ def add_application_data(ax, app_data_filename):
         app_df = pd.read_csv(csv_filename)
 
     app_df['Gflops/Sec'] = (app_df['Total Flops']/app_df['Time (s)'])/1000000000
+    #app_df['Gflops/Sec'] = app_df['Total Flops']/app_df['Time (s)']
+    print(app_df)
     sns.scatterplot(ax=ax, x=app_df['Arithmetic Intensity'], y=app_df['Gflops/Sec'], style=app_df['Label'], hue=app_df['Label'], s=150)
+    #ax.legend(bbox_to_anchor=(1.125, 1), loc='upper left')
     ax.legend(loc='lower right')
 
 
